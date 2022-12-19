@@ -16,8 +16,9 @@ from handlers.other import *
 
 from textt_bot import *
 
-
+# тексты запросов
 req_cmd = [start_c, learn_c, crypto_c]
+# тексты ответов
 bot_ans = [start_a, learn_a, crypto_a]
 
 class TestBot(TestCase):
@@ -25,15 +26,19 @@ class TestBot(TestCase):
 # Тестирует правильность обработки сценария, происходит проверка
 # на количество ответов требуемому и что ответы соответствуют ожидаемым
 
-    def test_scenario1(self):
+    def test_scenario(self):
         # патчим, чтобы все сообщения бота собирались в send_messages
         with patch('aiogram.bot.Bot.send_message', return_value = None) as send_messages:
             # тестируем команду, которую бот не знает
+            # message_mock =  unittest.mock.Mock(text = start_c)
+            # asyncio.run(start_command(message_mock))
+            # тестируем команду /start
             message_mock = unittest.mock.Mock(text = start_c)
             asyncio.run(start_command(message_mock))
             # тестируем команду "Наша история"
             message_mock = unittest.mock.Mock(text = learn_c)
             asyncio.run(w_command(message_mock))
+            # тестируем команду "Расположение"
             # тестируем команду "Часто задаваемые вопросы"
             message_mock = unittest.mock.Mock(text = crypto_c)
             asyncio.run(joke_command(message_mock))
